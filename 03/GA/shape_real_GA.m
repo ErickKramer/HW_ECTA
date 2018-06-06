@@ -2,8 +2,8 @@ function output = shape_real_GA(task, wing,  p )
     if nargin < 1
         %Parameters for the wing
         wing.numEvalPts = 256;
-%         wing.nacaNum = [0,0,1,2];
-        wing.nacaNum = [5,5,2,2]; % NACA Parameters
+        wing.nacaNum = [0,0,1,2];
+%         wing.nacaNum = [5,5,2,2]; % NACA Parameters
         % wing.nacaNum = [9,7,3,5]; % NACA Parameters
         wing.nacafoil= create_naca(wing.nacaNum,wing.numEvalPts);  % Create foil
         output = wing; %output of cityData
@@ -11,7 +11,7 @@ function output = shape_real_GA(task, wing,  p )
     elseif nargin < 3
         p.task = task;
         p.nGenes = 32;
-        p.maxGen    = 100;
+        p.maxGen    = 20000;
         p.popSize   = 100;
         p.sp        = 2;
         %Play with different rates for crossover
@@ -54,7 +54,7 @@ function output = shape_real_GA(task, wing,  p )
        best(:,iGen)          = pop(iBest,:);
        
        %Plotting progress
-       plot_foil(best(:,iGen), wing)
+%        plot_foil(best(:,iGen), wing)
        
        % Selection -- Returns [MX2] indices of parents
        parentIds = my_selection_T(fitness, p); % Returns indices of parents

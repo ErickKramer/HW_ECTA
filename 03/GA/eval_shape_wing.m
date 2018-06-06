@@ -31,7 +31,7 @@ disp("Foil calculated")
 
 %% Calculating the best individuals over 20 runs for different rates real values
 clc; clear all;
-
+tic
 parfor iExp = 1:20
     wing = shape_real_GA();
     p = shape_real_GA('mean_square_mul', wing);
@@ -43,7 +43,7 @@ parfor iExp = 1:20
     best_ind{iExp} = {best, lowest};
 end
 wing = shape_real_GA();
-
+toc
 
 %Extracting the values from the best_ind cells
 for iPen=1:20
