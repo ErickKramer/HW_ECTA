@@ -29,16 +29,31 @@ function oneFifthES()
         while(stop_criteria)
             Z = normrnd(mean, variance);  
             
-            temp_individual = individual + step_size.*Z;
+            new_individual = individual + step_size.*Z;        
             
             [foil, ~] = pts2ind(individual, wing.numEvalPts);
-            [temp_foil, ~] = pts2ind(temp_individual, wing.numEvalPts);
+          
             fitness = feval(task, wing, foil); 
-            temp_fitness = feval(task, wing, temp_foil);
+            
+            for gene = 1:nGenes
+                temp_individual =individual;
+                temp_individual(gene) = new_individual(gene);
+                [foil, ~] = pts2ind(temp_individual, wing.numEvalPts);
+                gene_fitness = feval(task, wing, foil);
+                
+                if gene_fitness < fitness
+                    individual(gene) = new_individual(gene);
+                end
+                
+            end
+            
+              [temp_foil, ~] = pts2ind(new_individual, wing.numEvalPts);
+              temp_fitness = feval(task, wing, temp_foil);
+
             
             if temp_fitness <= fitness
                 s = s+1;
-                individual = temp_individual;
+                individual = new_individual;
             end
             
             if mod(t,p) == 0
@@ -53,7 +68,7 @@ function oneFifthES()
         %Plotting progress
         plot_foil(individual, wing)
         pause(0.5);
-        if fitness < 0.00002
+        if fitness < 1e-5
             stop_criteria = false;
         end
        toc
