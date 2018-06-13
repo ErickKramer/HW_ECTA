@@ -1,27 +1,35 @@
-function output = shape_real_GA(task, wing,  p )
-    if nargin < 1
+function output = shape_real_GA(wing_type, task, wing,  p )
+    if nargin < 2
         %Parameters for the wing
         wing.numEvalPts = 256;
-        wing.nacaNum = [0,0,1,2];
-%         wing.nacaNum = [5,5,2,2]; % NACA Parameters
-        % wing.nacaNum = [9,7,3,5]; % NACA Parameters
+        
+        switch wing_type
+            case 1
+                wing.nacaNum = [0,0,1,2];
+%                 disp('Wing 1')
+            case 2
+                wing.nacaNum = [5,5,2,2];
+%                 disp('Wing 2')
+            case 3
+                wing.nacaNum = [9,7,3,5];
+%                 disp('Wing 3')
+            otherwise
+                wing.nacaNum = [0,0,1,2];
+%                 disp('Wing 1')
+        end
+        
         wing.nacafoil= create_naca(wing.nacaNum,wing.numEvalPts);  % Create foil
         output = wing; %output of cityData
         return
-    elseif nargin < 3
+    elseif nargin < 4
         p.task = task;
         p.nGenes = 32;
-        p.maxGen    = 20000;
-        p.popSize   = 100;
+        p.maxGen    = 1000;
+        p.popSize   = 50;
         p.sp        = 2;
-        %Play with different rates for crossover
         p.crossProb = 0.8; 
-        p.cross_flag = 'two_point';
-        %Play with different rates for mutation
-%         p.mutProb   = 1/p.nGenes;
-%         p.mutProb   = 0.10;
+        p.cross_flag = 'one_point';
         p.mutProb   = 0.01;
-%         p.mutProb   = 0.99;
         p.elitePerc = 0.1;
         output      = p;             % Output default hyperparameters
         return

@@ -1,6 +1,6 @@
 function float_rep = bit2float(bit_rep)
     n = 1; %Number of bits for integer part
-    m = 20; %Number of bits for fraction part of your number
+    m = 31; %Number of bits for fraction part of your number
     
     bit_rep = reshape(bit_rep,m+n,length(bit_rep)/(m+n))';
     

@@ -1,6 +1,6 @@
 function bit_rep = float2bit(individual)
     n = 1; %Number of bits for integer part
-    m = 20; %Number of bits for fraction part of your number
+    m = 31; %Number of bits for fraction part of your number
     
     %Bitstring 
     %PEDING Analysis: Sometimes the bits are expressed as -1 or 1
