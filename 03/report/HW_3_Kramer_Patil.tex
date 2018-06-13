@@ -172,8 +172,9 @@ To be perfectly clear we expect two submissions to LEA:
 	\item CMA-ES is an advanced version of ES. As a first step implement a simple ES first. 
 		\begin{itemize}
 			\item In this ES mutation of all parameters should have equal strength which is adjusted by the 1/5th rule.\\(\textit{every N generations change mutation strength: if $>1/5$th of mutations resulted in an better fitness (i.e. a best solution) increase mutation strength, otherwise decrease mutation strength}). Test your implementation on \underline{one} of the shapes.
-			\item Compare to your best GA. Is one significantly better than the other?
-			\\\color{blue}\\
+			\item {Compare to your best GA. Is one significantly better than the other?\\
+			\color{blue}
+			ES converged much faster than GA. ES required less generations to find a good solution.	}
 			\begin{figure}[http]
 				
 				\begin{subfigure}[b]{.50\linewidth}
@@ -198,8 +199,9 @@ To be perfectly clear we expect two submissions to LEA:
 		\end{itemize}
 	\item Now program CMA-ES \underline{without evolution paths}.
 	\begin{itemize}
-		\item Compare to your ES results. Is a there a significant improvement?
-		\\\color{blue}\\
+		\item {Compare to your ES results. Is a there a significant improvement?\\
+		\color{blue}
+		To our surprise, there was no improvement in using CMA-ES in comparison to ES. Perhaps, due to the tweaking we performed in the ES to speed up the calculation.}
 		\begin{figure}[http]
 			
 			\begin{subfigure}[b]{.50\linewidth}
@@ -225,8 +227,10 @@ To be perfectly clear we expect two submissions to LEA:
 
 	\item \textit{***Extra Credit***} Now program CMA-ES \underline{with evolution paths}.
 		\begin{itemize}
-		\item Compare to your previous CMA-ES results. Is a there a significant improvement?
-		\\\color{blue}\\
+		\item {Compare to your previous CMA-ES results. Is a there a significant improvement?\\
+		
+		\color{blue}
+		Yes, the CMA-ES with evolution paths converge much faster than the one without evolution paths.	}
 		\begin{figure}[http]
 			
 			\begin{subfigure}[b]{.50\linewidth}

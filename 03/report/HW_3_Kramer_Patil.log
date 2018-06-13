@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.2.27)  13 JUN 2018 16:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.2.27)  13 JUN 2018 23:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -478,10 +478,10 @@ PNG copy)>] <img/GA_wing3_real.png, id=46, 721.19438pt x 740.7675pt>
 File: img/GA_wing3_real.png Graphic file (type png)
 
 <use img/GA_wing3_real.png>
-Package pdftex.def Info: img/GA_wing3_real.png used on input line 180.
+Package pdftex.def Info: img/GA_wing3_real.png used on input line 181.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (43.85999pt too wide) in paragraph at lines 180--181
+Overfull \hbox (43.85999pt too wide) in paragraph at lines 181--182
 [][] 
  []
 
@@ -489,29 +489,29 @@ Overfull \hbox (43.85999pt too wide) in paragraph at lines 180--181
 File: img/ES_wing3_mean.png Graphic file (type png)
 
 <use img/ES_wing3_mean.png>
-Package pdftex.def Info: img/ES_wing3_mean.png used on input line 185.
+Package pdftex.def Info: img/ES_wing3_mean.png used on input line 186.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (61.11104pt too wide) in paragraph at lines 185--186
+Overfull \hbox (61.11104pt too wide) in paragraph at lines 186--187
 [][] 
  []
 
 <img/GA_vs_ES.png, id=48, 721.19438pt x 740.7675pt>
 File: img/GA_vs_ES.png Graphic file (type png)
  <use img/GA_vs_ES.png>
-Package pdftex.def Info: img/GA_vs_ES.png used on input line 191.
+Package pdftex.def Info: img/GA_vs_ES.png used on input line 192.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (36.95851pt too wide) in paragraph at lines 191--192
+Overfull \hbox (36.95851pt too wide) in paragraph at lines 192--193
 [][] 
  []
 
 File: img/ES_wing3_mean.png Graphic file (type png)
 <use img/ES_wing3_mean.png>
-Package pdftex.def Info: img/ES_wing3_mean.png used on input line 206.
+Package pdftex.def Info: img/ES_wing3_mean.png used on input line 208.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (43.85999pt too wide) in paragraph at lines 206--207
+Overfull \hbox (43.85999pt too wide) in paragraph at lines 208--209
 [][] 
  []
 
@@ -519,10 +519,10 @@ Overfull \hbox (43.85999pt too wide) in paragraph at lines 206--207
 File: img/CMA_ES_N_wing3_mean.png Graphic file (type png)
 
 <use img/CMA_ES_N_wing3_mean.png>
-Package pdftex.def Info: img/CMA_ES_N_wing3_mean.png used on input line 211.
+Package pdftex.def Info: img/CMA_ES_N_wing3_mean.png used on input line 213.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (61.11104pt too wide) in paragraph at lines 211--212
+Overfull \hbox (61.11104pt too wide) in paragraph at lines 213--214
 [][] 
  []
 
@@ -530,19 +530,24 @@ Overfull \hbox (61.11104pt too wide) in paragraph at lines 211--212
 File: img/CMA_ES_vs_ES.png Graphic file (type png)
 
 <use img/CMA_ES_vs_ES.png>
-Package pdftex.def Info: img/CMA_ES_vs_ES.png used on input line 217.
+Package pdftex.def Info: img/CMA_ES_vs_ES.png used on input line 219.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (36.95851pt too wide) in paragraph at lines 217--218
+Overfull \hbox (36.95851pt too wide) in paragraph at lines 219--220
 [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
+
  []
 
 File: img/CMA_ES_N_wing3_mean.png Graphic file (type png)
 <use img/CMA_ES_N_wing3_mean.png>
-Package pdftex.def Info: img/CMA_ES_N_wing3_mean.png used on input line 233.
+Package pdftex.def Info: img/CMA_ES_N_wing3_mean.png used on input line 237.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (43.85999pt too wide) in paragraph at lines 233--234
+Overfull \hbox (43.85999pt too wide) in paragraph at lines 237--238
 [][] 
  []
 
@@ -550,10 +555,10 @@ Overfull \hbox (43.85999pt too wide) in paragraph at lines 233--234
 File: img/CMA_ES_wing3_mean.png Graphic file (type png)
 
 <use img/CMA_ES_wing3_mean.png>
-Package pdftex.def Info: img/CMA_ES_wing3_mean.png used on input line 238.
+Package pdftex.def Info: img/CMA_ES_wing3_mean.png used on input line 242.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (61.11104pt too wide) in paragraph at lines 238--239
+Overfull \hbox (61.11104pt too wide) in paragraph at lines 242--243
 [][] 
  []
 
@@ -561,10 +566,10 @@ Overfull \hbox (61.11104pt too wide) in paragraph at lines 238--239
 File: img/CMAES_vs_CMAES.png Graphic file (type png)
 
 <use img/CMAES_vs_CMAES.png>
-Package pdftex.def Info: img/CMAES_vs_CMAES.png used on input line 244.
+Package pdftex.def Info: img/CMAES_vs_CMAES.png used on input line 248.
 (pdftex.def)             Requested size: 216.35999pt x 222.23196pt.
 
-Overfull \hbox (36.95851pt too wide) in paragraph at lines 244--245
+Overfull \hbox (36.95851pt too wide) in paragraph at lines 248--249
 [][] 
  []
 
@@ -576,10 +581,10 @@ opy)> <./img/CMAES_vs_CMAES.png (PNG copy)>]
 File: img/all_for_one.png Graphic file (type png)
 
 <use img/all_for_one.png>
-Package pdftex.def Info: img/all_for_one.png used on input line 265.
+Package pdftex.def Info: img/all_for_one.png used on input line 269.
 (pdftex.def)             Requested size: 360.59631pt x 370.38284pt.
 
-Overfull \hbox (15.59631pt too wide) in paragraph at lines 265--270
+Overfull \hbox (15.59631pt too wide) in paragraph at lines 269--274
  [][] 
  []
 
@@ -598,7 +603,7 @@ Here is how much of TeX's memory you used:
  8777 multiletter control sequences out of 15000+600000
  13942 words of font info for 54 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,10n,42p,523b,679s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,10n,42p,523b,670s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/kramer/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/
@@ -613,7 +618,7 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on HW_3_Kramer_Patil.pdf (13 pages, 690951 bytes).
+Output written on HW_3_Kramer_Patil.pdf (13 pages, 691251 bytes).
 PDF statistics:
  123 PDF objects out of 1000 (max. 8388607)
  78 compressed objects within 1 object stream
