@@ -22,40 +22,44 @@ function output = NSGA2()
         fitness_ones     = leading_ones_fitness(pop, p);  
         fitness_zeros   = trailing_zeros_fitness(pop, p);
         fitness = fitness_ones+fitness_zeros;
-
-    pop = FNDS(pop, p, fitness)
-    % Data Gathering
-    [fitMax(iGen), iBest] = max(fitness); % 1st output is the max value, 2nd the index of that max value
-    fitMed(iGen)          = median(fitness);
-    best(:,iGen)          = pop(iBest,:);
     end
-%     pop = FNDS(pop, p, fitness)
-    
-    %% Evolutionary Operators
-    
-    % Selection -- Returns [MX2] indices of parents
-    parentIds = my_selection(fitness, p); % Returns indices of parents
-    
-    % Crossover -- Returns children of selected parents
-    children  = my_crossover(pop, parentIds, p);
-    
-    % Mutation  -- Applies mutation to newly created children
-    children  = my_mutation(children, p);
-    
-    % Elitism   -- Select best individual(s) to continue unchanged
-    eliteIds  = my_elitism(fitness, p);
-    
-    % Create new population -- Combine new children and elite(s)
-    newPop    = [pop(eliteIds,:); children];
-    pop       = newPop(1:p.popSize,:);  % Keep population size constant
-    
-    % Evaluate new population
-        fitness_ones     = leading_ones_fitness(pop, p);  
-        fitness_zeros   = trailing_zeros_fitness(pop, p);
-        fitness = fitness_ones+fitness_zeros;
-
     end
-output.fitMax   = fitMax;
-output.fitMed   = fitMed;
-output.best     = best;    
+    
+    [ind,front] = FNDS(pop, p, fitness);
 end
+
+%     % Data Gathering
+%     [fitMax(iGen), iBest] = max(fitness); % 1st output is the max value, 2nd the index of that max value
+%     fitMed(iGen)          = median(fitness);
+%     best(:,iGen)          = pop(iBest,:);
+%     end
+% %     pop = FNDS(pop, p, fitness)
+%     
+%     %% Evolutionary Operators
+%     
+%     % Selection -- Returns [MX2] indices of parents
+%     parentIds = my_selection(fitness, p); % Returns indices of parents
+%     
+%     % Crossover -- Returns children of selected parents
+%     children  = my_crossover(pop, parentIds, p);
+%     
+%     % Mutation  -- Applies mutation to newly created children
+%     children  = my_mutation(children, p);
+%     
+%     % Elitism   -- Select best individual(s) to continue unchanged
+%     eliteIds  = my_elitism(fitness, p);
+%     
+%     % Create new population -- Combine new children and elite(s)
+%     newPop    = [pop(eliteIds,:); children];
+%     pop       = newPop(1:p.popSize,:);  % Keep population size constant
+%     
+%     % Evaluate new population
+%         fitness_ones     = leading_ones_fitness(pop, p);  
+%         fitness_zeros   = trailing_zeros_fitness(pop, p);
+%         fitness = fitness_ones+fitness_zeros;
+% 
+%     end
+% output.fitMax   = fitMax;
+% output.fitMed   = fitMed;
+% output.best     = best;    
+% end
