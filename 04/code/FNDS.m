@@ -1,51 +1,51 @@
-function [individuals, Front] = FNDS(pop, p, fitness)
+function individual = FNDS(pop, p, fitness_ones, fitness_zeros)
 % function to perform the non-dominated sort
 %% initialize the variables 
-f_count = 1;
-Front(1).f = [];
-for i = 1:p.popSize
-    individual(i).fitness = fitness(i);
-    individual(i).Sp = [];
-    individual(i).Np = nan;
-    individual(i).val = pop(i, :);
-end
+F{1} = [];
 
 %% begin the sorting procedure, obtain the values for Sp and Np for each solution
-for i = 1:p.popSize-1
-    for j = i+1:p.popSize
-        if individual(i).fitness > individual(j).fitness
-            individual(i).Sp = [individual(i).Sp, individual(j).val]
-        end
-        if individual(j).fitness > individual(i).fitness
-            individual(i).Np = individual(i).Np + 1;
-        end
-    end
-end   
-%% perform the sorting based on the values obtained previously
-
-for idx = 1:p.popSize
-    if individual(i).Np == 0
-        individual(i).rank = 1;
-        Front(1).f = [Front(1).f, i]
-    end
-end
-
-%% calculate pareto rank of each individual
-
-while( ~isempty(Front(f_count).f) )
-    Q = [];
-    for p = Front(f_count).f
-        for q = individual(p).Sp
-            individual(q).Np = individual(q).Np -1;
-            if( individual(q).Np == 0 )
-                pop(q).rank = f_count+1;
-                Q = [Q, q];
+for ip = 1:p.popSize
+    individual(ip).sp = [];
+    individual(ip).np = 0;
+    for iq = 1:p.popSize
+        if ip ~= iq
+            if dom_validator(ip, iq, fitness_ones, fitness_zeros)
+                individual(ip).sp = [individual(ip).sp; iq];
+            elseif dom_validator(iq, ip, fitness_ones, fitness_zeros)
+                individual(ip).np = individual(ip).np + 1;
             end
         end
     end
-    f_count = f_count + 1;
     
-    Front(f_count).f = Q;
+    if individual(ip).np == 0
+        individual(ip).rank = 1;
+        F{1} = [F{1}; ip];
+    end
+    
+end   
+
+%% calculate pareto rank of each individual
+iFront = 1;
+while true
+    Q = [];
+    
+    for i=1:numel(F{iFront})
+        p = individual(F{iFront}(i));
+        for j = 1:numel(p.sp)
+            q = individual(p.sp(j));
+            q.np = q.np - 1;
+            
+            if q.np == 0
+                q.rank = iFront + 1;
+                Q = [Q; p.sp(j)];
+            end
+            individual(p.sp(j)) = q;           
+        end
+    end
+    
+    if isempty(Q)
+        break;
+    end
+    
 end
-individuals = individual;
-Front(f_count) = []; 
+end
