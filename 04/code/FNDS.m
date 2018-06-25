@@ -47,5 +47,8 @@ while true
         break;
     end
     
+    iFront = iFront +1;
+    F{iFront} = Q;
+    
 end
 end

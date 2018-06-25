@@ -21,11 +21,11 @@ function output = NSGA2()
         pop              = randi([0 1],[p.popSize p.nGenes]); % (range, matrix dimensions)
         fitness_ones     = leading_ones_fitness(pop);  
         fitness_zeros   = trailing_zeros_fitness(pop);
-        fitness = fitness_ones+fitness_zeros;
-    end
     end
     
-    [ind,front] = FNDS(pop, p, fitness_ones, fitness_zeros);
+    
+    individual = FNDS(pop, p, fitness_ones, fitness_zeros);
+    end
 end
 
 %     % Data Gathering
