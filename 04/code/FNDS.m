@@ -1,13 +1,13 @@
-function individual = FNDS(pop, p, fitness_ones, fitness_zeros)
+function [individual, F] = FNDS(pop, p, fitness_ones, fitness_zeros)
 % function to perform the non-dominated sort
 %% initialize the variables 
 F{1} = [];
-
+n = size(pop,1);
 %% begin the sorting procedure, obtain the values for Sp and Np for each solution
-for ip = 1:p.popSize
+for ip = 1:n
     individual(ip).sp = [];
     individual(ip).np = 0;
-    for iq = 1:p.popSize
+    for iq = 1:n
         if ip ~= iq
             if dom_validator(ip, iq, fitness_ones, fitness_zeros)
                 individual(ip).sp = [individual(ip).sp; iq];
@@ -21,7 +21,7 @@ for ip = 1:p.popSize
         individual(ip).rank = 1;
         F{1} = [F{1}; ip];
     end
-    
+    individual(ip).gen = pop(ip,:);
 end   
 
 %% calculate pareto rank of each individual
