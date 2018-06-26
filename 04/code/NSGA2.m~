@@ -59,9 +59,9 @@ function pop = NSGA2()
             
             
             % Visualization
-            fitness_ones     = trailing_ones_fitness(plot_pop);  
-            fitness_zeros   =  leading_zeros_fitness(plot_pop);
-            displayFronts([sorted_individuals.rank], [fitness_ones, fitness_zeros], plot_pop);
+            fitness_ones     = trailing_ones_fitness(pop);  
+            fitness_zeros   =  leading_zeros_fitness(pop);
+            displayFronts([sorted_individuals.rank]', [fitness_ones, fitness_zeros], plot_pop);
             pause(0.5);
             iGen = iGen +1;
         
