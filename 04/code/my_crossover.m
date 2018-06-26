@@ -39,43 +39,43 @@ child_idx = 1;
 %Initialization of the children array
 children = zeros(size(pop));
 
+
 %Calculation of the number of parents
-num_parents = size(parentIds,2);
+num_parents = size(parentIds,1);
 
 %Array containing a flag for the parents over which crossover is going to
 %be performed. 
 %If the random number between 0 and 1 is less than the probability of 
 %crossover True is stored, False otherwise.
-cross_flag = rand(1,length(parentIds)) < p.crossProb;
+cross_flag = rand(2,length(parentIds)) < p.crossProb;
 
 %Iterate over the parents array in steps of 2
-for i = 1 : 2 : num_parents
+for i = 1 : num_parents
     
     %If both parents are active for crossover
-    if cross_flag(i) && cross_flag(i+1)
+    if cross_flag(1,i) && cross_flag(2,i)
         
-        %Random point to perform crossover from 1 till 17
-        cross_point = randi(p.nGenes-1);
-        
+        cross_point = randi(p.nGenes);
+        parentA = parentIds(i,1);
+        parentB = parentIds(i,2);
         %Get the index for the first part
-        part_1 = 1 : cross_point;
+        parent1Genes = pop(parentA,[1:cross_point]);
         
         %Get the index for the second part
-        part_2 = cross_point + 1 : p.nGenes;
+        parent2Genes = pop(parentB,[cross_point+1:end]);
         
         %Create the genome for the children combining the first part for
         %the first parent and the second part of the second parent
-        children(child_idx,:) = ...
-            [pop(parentIds(i),part_1), pop(parentIds(i+1),part_2)];
+        children(i,:) = ...
+            [parent1Genes, parent2Genes];
         
     %If one or both parents are not active for crossover 
     else
         %Create the genome for the children by passing the parent
-        children(child_idx,:) = pop(parentIds(i),:);
+        children(i,:) = pop(parentIds(i,1),:);  
 
         
     end
-    child_idx = child_idx + 1;
 end 
 %disp('Crossover process')
 %toc
