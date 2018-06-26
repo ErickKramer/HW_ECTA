@@ -1,42 +1,36 @@
 function pop = NSGA2()
 %% Initialize
     clear all; clc;
-    p.nGenes    = 20; % > feval evaluates a function. we have 
-                                 %   programmed our fitness functions to 
-                                 %   return the number of genes when no
-                                 %   input arguments are given to make it
-                                 %   easier to switch between tasks.
+    p.nGenes    = 20; 
     p.maxGen    = 200;
-    p.popSize   = 100;
+    p.popSize   = 1000;
     p.sp_       = 2; %Selection pressure
     p.crossProb = 0.8;
 %     p.mutProb   = 1/p.nGenes;
     p.mutProb   = 0.1;
     p.elitePerc = 0.1;
     output      = p;  
+    num_fitness = 3;
     
     % Initialization of the structure data used for the problem
-    test_pop = load('debug_pop.mat');    
     for it = 1:p.popSize
         individuals(it).sp = [];
         individuals(it).np = 0;
-%         individuals(it).gen = randi([0 1],[1 p.nGenes]);
-        individuals(it).gen = test_pop.pop(it,:) ;
+        individuals(it).gen = randi([0 1],[1 p.nGenes]);
         individuals(it).rank = 0;
-        individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen)];
+        if num_fitness == 2
+            individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen)];
+        else
+            individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen), non_consec_ones_zeros(individuals(it).gen)];
+        end
         individuals(it).crowding_distance = 0;     
     end
     
     individuals = individuals';
     
-    for iGen = 1:p.maxGen    
-    %% Initialize population
-    % - Initialize a population of random individualss and evaluate them.
-%         if iGen == 1
-%             pop              = randi([0 1],[p.popSize p.nGenes]); % (range, matrix dimensions)
-%         end
-%             fitness_ones     = trailing_ones_fitness(pop);  
-%             fitness_zeros   =  leading_zeros_fitness(pop); 
+    for iGen = 1:p.maxGen
+        tic
+
         [individuals, F] = FNDS(individuals);
             
         % Crowding distance
@@ -62,7 +56,11 @@ function pop = NSGA2()
             individuals_2(it).np = 0;
             individuals_2(it).gen = children(it,:);
             individuals_2(it).rank = 0;
-            individuals_2(it).fitness = [leading_zeros_fitness(individuals_2(it).gen), trailing_ones_fitness(individuals_2(it).gen)];
+            if num_fitness ==2
+                individuals_2(it).fitness = [leading_zeros_fitness(individuals_2(it).gen), trailing_ones_fitness(individuals_2(it).gen)];
+            else
+                individuals_2(it).fitness = [leading_zeros_fitness(individuals_2(it).gen), trailing_ones_fitness(individuals_2(it).gen), non_consec_ones_zeros(individuals_2(it).gen)];
+            end
             individuals_2(it).crowding_distance = 0;     
         end
         
@@ -80,22 +78,20 @@ function pop = NSGA2()
         %Sort individualss
         sorted_individuals = sort_individuals(individuals);
         
-        %Display front
-%         disp(F);
         
-%         individuals.fitness
+        % Plot the front
         plot_pop = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
-%         plot_pop = vertcat(sorted_individuals.gen);
         hold on;
-        displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],2,[])', plot_pop);
-%         displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],2,[])', vertcat(sorted_individuals.gen));
+        displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],num_fitness,[])', plot_pop);
         drawnow;
         hold off;
         
-        
-            
+  
         % Collecting population to survive
         individuals = sorted_individuals(1:p.popSize);
+        
+        disp(['Generation: ' num2str(iGen)])
+        disp(['1 Gen took ' num2str(toc) ' seconds'])
         
         
         

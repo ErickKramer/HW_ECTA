@@ -42,11 +42,6 @@ if num_fitness ==2
 
     plot(fitness(1:survivals,1), fitness(1:survivals,2), 'go', 'MarkerSize', 15)
     plot(fitness(survivals+1:popSize,1), fitness(survivals+1:popSize,2), 'rx', 'MarkerSize', 15)
-    
-    xlabel('Trainling zeros');ylabel('Leading ones');
-    axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
-    title('Solutions and Fronts');
-    grid on;
 else
     for iFront=1:nFront
         h = plot3(fitness((front==iFront),1),fitness((front==iFront),2),fitness((front==iFront),3));
@@ -61,15 +56,13 @@ else
     end
 
     plot3(fitness(1:survivals,1), fitness(1:survivals,2), fitness(1:survivals,3),'go', 'MarkerSize', 15)
-    plot3(fitness(survivals+1:popSize,1), fitness(survivals+1:popSize,2), fitness(survivals+1:popSize,3),'rx', 'MarkerSize', 15)
-    
-    xlabel('Trainling zeros');ylabel('Leading ones'); zlabel('Non Consecutive')
-    axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
-    title('Solutions and Fronts');
-    grid on;
+    plot3(fitness(survivals+1:popSize,1), fitness(survivals+1:popSize,2), 'rx', 'MarkerSize', 15)
 end
 
-
+xlabel('Trainling zeros');ylabel('Leading ones');
+axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
+title('Solutions and Fronts');
+grid on;
 
 
 fig=gcf;

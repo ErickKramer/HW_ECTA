@@ -1,37 +1,6 @@
 function individuals =  crowding_distance(F, individuals)
-    nFitness = 2;
-    for fr= 1:size(F,2) 
-          
-%          for i = 1:numel(F{fr})
-%              individuals(F{fr}(i)).crowding_distance = 0;
-%          end
-%          
-%          fitness_array = reshape([individuals(F{fr}).fitness],2,[]);
-%          
-%          D = zeros(size(fitness_array));
-%          
-%          for m = 1:2
-%              [sorted idx] = sort(fitness_array(m,:));
-%              
-%              first_idx = idx(1);
-%              last_idx = idx(end);
-%              
-%              D(m,first_idx) = inf;
-%              D(m,last_idx) = inf;
-%              
-%              for k = 2:numel(idx)-1
-%                  D(m,k) = D(m,k) + (sorted(k+1) - sorted(k-1)) / ...
-%                      (max(sorted) - min(sorted));
-%              end
-%          end
-%          
-%          D(isnan(D)) =0;
-%          D = sum(D,1);
-%          
-%          for i=1:numel(F{fr})
-%              individuals(F{fr}(i)).crowding_distance = D(i);
-%          end
-          
+    nFitness = numel(individuals(1).fitness);
+    for fr= 1:size(F,2)  
         % Extract front_ind in the front
         front_ind = [F{fr}];
         

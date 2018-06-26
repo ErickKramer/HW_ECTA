@@ -1,11 +1,7 @@
 function pop = NSGA2()
 %% Initialize
     clear all; clc;
-    p.nGenes    = 20; % > feval evaluates a function. we have 
-                                 %   programmed our fitness functions to 
-                                 %   return the number of genes when no
-                                 %   input arguments are given to make it
-                                 %   easier to switch between tasks.
+    p.nGenes    = 20; 
     p.maxGen    = 200;
     p.popSize   = 100;
     p.sp_       = 2; %Selection pressure
@@ -16,14 +12,16 @@ function pop = NSGA2()
     output      = p;  
     
     % Initialization of the structure data used for the problem
-    test_pop = load('debug_pop.mat');    
     for it = 1:p.popSize
         individuals(it).sp = [];
         individuals(it).np = 0;
-%         individuals(it).gen = randi([0 1],[1 p.nGenes]);
-        individuals(it).gen = test_pop.pop(it,:) ;
+        individuals(it).gen = randi([0 1],[1 p.nGenes]);
         individuals(it).rank = 0;
-        individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen)];
+        % 2 fitness
+%         individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen)];
+        % 3 fitness
+        individuals(it).fitness = [leading_zeros_fitness(individuals(it).gen), trailing_ones_fitness(individuals(it).gen), non_consec_ones_zeros(individuals(it).gen)];
+        %
         individuals(it).crowding_distance = 0;     
     end
     
@@ -62,7 +60,9 @@ function pop = NSGA2()
             individuals_2(it).np = 0;
             individuals_2(it).gen = children(it,:);
             individuals_2(it).rank = 0;
+            %2 fitness
             individuals_2(it).fitness = [leading_zeros_fitness(individuals_2(it).gen), trailing_ones_fitness(individuals_2(it).gen)];
+            %3 fitness
             individuals_2(it).crowding_distance = 0;     
         end
         
@@ -94,7 +94,7 @@ function pop = NSGA2()
         
         
             
-        % Collecting population to surviv
+        % Collecting population to survive
         individuals = sorted_individuals(1:p.popSize);
         
         
