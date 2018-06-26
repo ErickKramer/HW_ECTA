@@ -9,8 +9,9 @@ function pop = NSGA2()
     p.maxGen    = 200;
     p.popSize   = 100;
     p.sp_       = 2; %Selection pressure
-    p.crossProb = 0.5;
-    p.mutProb   = 1/p.nGenes;
+    p.crossProb = 0.8;
+%     p.mutProb   = 1/p.nGenes;
+    p.mutProb   = 0.1;
     p.elitePerc = 0.1;
     output      = p;  
     
@@ -83,16 +84,17 @@ function pop = NSGA2()
 %         disp(F);
         
 %         individuals.fitness
-%         plot_pop = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
-        plot_pop = vertcat(sorted_individuals.gen);
+        plot_pop = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
+%         plot_pop = vertcat(sorted_individuals.gen);
         hold on;
-        displayFronts([sorted_individuals.rank]', reshape([individuals.fitness],2,[])', plot_pop);
+        displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],2,[])', plot_pop);
+%         displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],2,[])', vertcat(sorted_individuals.gen));
         drawnow;
         hold off;
         
         
             
-        % Collecting only 100 individualss    
+        % Collecting population to survive
         individuals = sorted_individuals(1:p.popSize);
         
         

@@ -22,6 +22,7 @@ function fig = displayFronts(front, fitness, pop)
 
 nGenes = size(pop,2);
 popSize= size(pop,1);
+survivals = popSize / 2;
 
 hold off;
 nFront = max(front); colors = parula(nFront);
@@ -36,7 +37,11 @@ for iFront=1:nFront
             num2str(pop( (front==iFront),:)))
     end
 end
-xlabel('Leading Ones');ylabel('Trailing Zeros');
+
+plot(fitness(1:survivals,1), fitness(1:survivals,2), 'go', 'MarkerSize', 15)
+plot(fitness(survivals+1:popSize,1), fitness(survivals+1:popSize,2), 'rx', 'MarkerSize', 15)
+
+xlabel('Trainling zeros');ylabel('Leading ones');
 axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
 title('Solutions and Fronts');
 grid on;
