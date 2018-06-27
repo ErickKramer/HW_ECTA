@@ -1,9 +1,9 @@
 function pop = NSGA2()
 %% Initialize
-    clear all; clc;
+%     clear all; clc;
     p.nGenes    = 20; 
-    p.maxGen    = 200;
-    p.popSize   = 1000;
+    p.maxGen    = 100;
+    p.popSize   = 100;
     p.sp_       = 2; %Selection pressure
     p.crossProb = 0.8;
 %     p.mutProb   = 1/p.nGenes;
@@ -11,7 +11,7 @@ function pop = NSGA2()
     p.elitePerc = 0.1;
     output      = p;  
     num_fitness = 3;
-    
+   
     % Initialization of the structure data used for the problem
     for it = 1:p.popSize
         individuals(it).sp = [];
@@ -27,9 +27,9 @@ function pop = NSGA2()
     end
     
     individuals = individuals';
-    
+    tic
     for iGen = 1:p.maxGen
-        tic
+%         tic
 
         [individuals, F] = FNDS(individuals);
             
@@ -80,21 +80,45 @@ function pop = NSGA2()
         
         
         % Plot the front
+
         plot_pop = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
         hold on;
         displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],num_fitness,[])', plot_pop);
         drawnow;
         hold off;
         
+        %generating the gif for the different population sizes
+%         if p.popSize == 10
+%             if iGen == 1
+%                 gif('NSGA2_popsize10.gif','DelayTime',0.25,'frame',gcf)
+%             else
+%                 gif
+%             end
+%         elseif p.popSize == 100
+%             if iGen == 1
+%                 gif('NSGA2_popsize100.gif','DelayTime',0.25,'frame',gcf)
+%             else
+%                 gif
+%             end
+%         else
+%              if iGen == 1
+%                 gif('NSGA2_popsize1000.gif','DelayTime',0.25,'frame',gcf)
+%             else
+%                 gif
+%             end
+%         end
+        
+            
+        
   
         % Collecting population to survive
         individuals = sorted_individuals(1:p.popSize);
-        
-        disp(['Generation: ' num2str(iGen)])
-        disp(['1 Gen took ' num2str(toc) ' seconds'])
-        
-        
-        
-        
+%         disp(['Generation: ' num2str(iGen)])
+%         disp(['One Gen took ' num2str(toc) ' seconds'])
+
     end
+        disp(['Generation: ' num2str(iGen)])
+        disp(['Population Size: ' num2str(p.popSize)])
+        disp(['Total Gen took ' num2str(toc) ' seconds'])
+
 end
