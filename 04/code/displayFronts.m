@@ -43,12 +43,12 @@ if num_fitness ==2
     plot(fitness(1:survivals,1), fitness(1:survivals,2), 'go', 'MarkerSize', 15)
     plot(fitness(survivals+1:popSize,1), fitness(survivals+1:popSize,2), 'rx', 'MarkerSize', 15)
     
-    xlabel('Trainling zeros');ylabel('Leading ones');
+    xlabel('Trailing zeros');ylabel('Leading ones');
     axis([-0.5 nGenes+0.5 -0.5 nGenes+0.5]); hold off;
     title('Solutions and Fronts');
     grid on;
 else
-    for iFront=1:nFront
+    for iFront=1:nFront      
         h = plot3(fitness((front==iFront),1),fitness((front==iFront),2),fitness((front==iFront),3));
         set(h,'LineStyle','--','Color',colors(iFront,:),'Marker','o'...
              ,'MarkerFaceColor', colors(iFront,:),'MarkerSize',25)
