@@ -1,4 +1,5 @@
-\documentclass{article}
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}
 
 
 % load package with some of the available options - you may not need this!
@@ -22,7 +23,7 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{18pt}
 \title{ECTA Homework 4\\Multiobjective Optimization with the\\Non-dominated Sorting Genetic Algorithm II}
-\author{\color{red}YOUR NAME, \texttt{your.email@h-brs.de}}
+\author{\color{blue}Erick Kramer, Mihir Patil\\ \texttt{\color{blue}erick.romero@smail.inf.h-brs.de , mihir.patil@smail.inf.h-brs.de}}
 % //////////////////////////////////////////////////
 
 \begin{document}
@@ -93,9 +94,26 @@ To be perfectly clear we expect two submissions to LEA:
 \begin{itemize}
 	\item (10pts) Compare the sort used by NSGA-II with a variety of population sizes. How long does 100 generations take with each approach when using a population size of:
 	\begin{enumerate}
-		\item 10:
-		\item 100:
-		\item 1000:
+		 \item For the population size of 10:
+		 \begin{itemize}
+		 	\item Generation Size: 100
+		 	\item Population Size: 10
+		 	\item Total time taken is: 22.2751 seconds
+		 \end{itemize}
+		 
+		 \item For the population size of 100:
+		 \begin{itemize}
+		 	\item Generation Size: 100
+		 	\item Population Size: 100
+		 	\item Total time taken is: 55.1203 seconds
+		 \end{itemize}
+		 
+		 \item For the population size of 1000:
+		 \begin{itemize}
+		 	\item Generation Size: 100
+		 	\item Population Size: 1000
+		 	\item Total time taken is: 2318.919 seconds or 38.64 mins
+		 \end{itemize}
 	\end{enumerate}
 	\item (5pts) Plot the end result of a single run with [100 pop and 100 gen] and [10 pop and 1000 gen]. Describe the difference between the end results. Which is preferable?
 	\begin{center}
@@ -112,13 +130,13 @@ To be perfectly clear we expect two submissions to LEA:
 		\label{finalplot10pop1000gen}
 	\end{figure}
 \newpage
-	\textbf{ From the above plots we can infer that it is better to have a larger population size as this gives us a more complete range of the solutions in the pareto front.}
+	\textbf{ From the above plots it can be appreciated the benefits of having a bigger population size instead of having a higher number of generations. Having more individuals in the populations allows the algorithm to develop the Pareto front much faster than with fewer individuals in the population.}
 
 
-	\item (5pts) Imagine you were to replace the objective of ``leading zeros'' with ``largest binary number''. Predict the result, and give your reasoning.\\
-	\textbf{ The final plot of the pareto front would then flip along the y-axis with the individual having the maximum fitness for both the leading zeros and largest binary number occupying the position 20,20 on the plot and the individual with the least fitness occupying the position 0,0 on the same plot.}
+	\item (5pts) Imagine you were to replace the objective of ``trailing zeros'' with ``largest binary number''. Predict the result, and give your reasoning.\\
+	\textbf{ The final plot of the Pareto front would have a positive slope as both fitness increase whenever a new 1 is added. Also, the individual having the maximum fitness for both the leading ones and largest binary number occupying the position 20,20 on the plot and the individual with the least fitness occupying the position 0,0 on the same plot.}
 	\item (5pts) Imagine you were to add a third objective: ``non-consecutive ones and zeros'' (ones not touching ones and zeros not touching zeros, e.g. 0101 and 1010 are the most optimal 4 bit solutions). How would you adjust the hyperparameters to get a satisfactory result?\\
-	\textbf{The population size and number of generations should be increased accordingly.}
+	\textbf{The population size and number of generations should be increased accordingly. As it would be required to have more individuals to increase the exploration and with that find the non dominated solutions that conform the Pareto front}
 	\item (5pts) In many GAs and ESs populations must be ranked, but no special methods are used. Why is a faster sort in MOO so important?\\
 	\textbf{Because the computational complexity is $O(MN^2)$ in the worst case(given a number of fitness functions), thus greatly reducing the run time for these high-dimensional MOO problems.}
 \end{itemize}
@@ -129,161 +147,155 @@ To be perfectly clear we expect two submissions to LEA:
 Implement the third objective ``non-consecutive ones and zeros''
 \begin{enumerate}
 	\item How many non-dominated solutions are possible? (Hint: start with a smaller length and test)\\
-	\textbf{A total of 199 possible non-dominated solutions can be possible.}
+	\textbf{We explored the possible solutions for this problem increasing the popSize up to 600 individuals and we found out 115 unique possible solutions with 200 generations. We believe that possibly there could be a few more unique solutions, but we were not able to find them :c. For the sake of an argument we will stay that there could be 120 unique non dominated solutions.}
 	\item What changes did you make to the algorithm and hyperparameters to get a good result?\\
-	\textbf{ We changed the population size to 100 as any lower population size doesn't yield a complete set of solutions.We also added a separate fitness function to compute the fitness for non-consecutive ones and zeros.}
+	\textbf{ We changed the population size to 600 to increase the exploration and by that find as many unique non dominated solutions as possible.}
 	\item List the solutions in your 1st front. Are they all Pareto optimal? How complete is your front (in percentage, based on $\#1$)\\
-	\textbf{The list of solutions has been attached as a table at the end of the report.The front is 69 percent complete and 138 solutions are pareto optimal.}
-	\begin{table}[]
+	\textbf{The list of solutions has been attached as a table at the end of the report. We found 115 possible solutions, which based on our assumption it is 95.83\%.}
+	\begin{table}[http]
 		\centering
-		\caption{List of the solutions}
-		\label{A .mat file has also been attached containing the list of solutions}
-		\begin{tabular}{llllllllllllllllllll}
-			1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-			1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-			0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 \\
-			1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
-			0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1
+		\caption{My caption}
+		\label{my-label}
+		\begin{tabular}{|l|}
+			\hline
+			0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0 \\ \hline
+			1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     0     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1 \\ \hline
+			1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0 \\ \hline
+			1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0 \\ \hline
+			1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0 \\ \hline
+			1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1 \\ \hline
+			1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     0     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1 \\ \hline
+			\end{tabular}
+		\end{table}
+		\begin{table}[http]
+			\centering
+			\caption{My caption}
+			\label{my-label}
+			\begin{tabular}{|l|}
+				\hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1 \\ \hline
+			0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     1     1     1     1 \\ \hline
+			0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     1     0     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0 \\ \hline
+			0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     1     1 \\ \hline
+			0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     0     0     0     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     0     1     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     1     1     1     1     1     1     1     1     1 \\ \hline
+		\end{tabular}
+	\end{table}
+	\begin{table}[http]
+		\centering
+		\caption{My caption}
+		\label{my-label}
+		\begin{tabular}{|l|}
+			\hline
+			0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     1     1 \\ \hline
+			0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     0     1     0     1     1     1     1     1     1     1 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     1 \\ \hline
+			0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			0     1     0     1     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1 \\ \hline
+			1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     0     1     0     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     1     0     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     1     0     1     0     1 \\ \hline
+			0     0     0     0     0     0     0     0     1     0     1     0     1     0     1     0     1     1     1     1 \\ \hline
+			0     0     0     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1 \\ \hline
+			0     0     0     0     0     1     0     1     0     1     0     1     0     1     1     1     1     1     1     1 \\ \hline
 		\end{tabular}
 	\end{table}
 	\item Plot the end result in 3D. (Use \mcode{plot3} or \mcode{scatter3})
 			\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{code/Extra_credit}
-			\caption{The plot obtained for non-consecutive zeros and ones with population and genarations set to 100.}
+			\caption{The plot obtained for non-consecutive zeros and ones with population of 600 and 200 generations.}
 			\label{extracredit}
 		\end{figure}
 \end{enumerate}

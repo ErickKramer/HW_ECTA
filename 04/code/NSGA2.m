@@ -1,9 +1,9 @@
-function pop = NSGA2()
+function individuals = NSGA2()
 %% Initialize
 %     clear all; clc;
     p.nGenes    = 20;
     p.maxGen    = 200;
-    p.popSize   = 100;
+    p.popSize   = 600;
     p.sp_       = 2; %Selection pressure
     p.crossProb = 0.8;
 %     p.mutProb   = 1/p.nGenes;
@@ -39,7 +39,7 @@ function pop = NSGA2()
         % Selection -- Returns [MX2] indices of parents
         parentIds = my_selection(p, individuals); % Returns indices of parents
 
-        % Getting the population array for crossover
+        % Getting the individualsulation array for crossover
         pop = reshape([individuals.gen], [p.nGenes, p.popSize])';
 
         % Crossover -- Returns children of selected parents
@@ -81,28 +81,28 @@ function pop = NSGA2()
 
         % Plot the front
 
-        plot_pop = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
+        plot_individuals = reshape([sorted_individuals.gen], [p.nGenes,2*p.popSize])';
         hold on;
-        displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],num_fitness,[])', plot_pop);
+        displayFronts([sorted_individuals.rank]', reshape([sorted_individuals.fitness],num_fitness,[])', plot_individuals);
         drawnow;
         hold off;
 
-        %generating the gif for the different population sizes
-%         if p.popSize == 10
+        %generating the gif for the different individualsulation sizes
+%         if p.individualsSize == 10
 %             if iGen == 1
-%                 gif('NSGA2_popsize10.gif','DelayTime',0.25,'frame',gcf)
+%                 gif('NSGA2_individualssize10.gif','DelayTime',0.25,'frame',gcf)
 %             else
 %                 gif
 %             end
-%         elseif p.popSize == 100
+%         elseif p.individualsSize == 100
 %             if iGen == 1
-%                 gif('NSGA2_popsize100.gif','DelayTime',0.25,'frame',gcf)
+%                 gif('NSGA2_individualssize100.gif','DelayTime',0.25,'frame',gcf)
 %             else
 %                 gif
 %             end
 %         else
 %              if iGen == 1
-%                 gif('NSGA2_popsize1000.gif','DelayTime',0.25,'frame',gcf)
+%                 gif('NSGA2_individualssize1000.gif','DelayTime',0.25,'frame',gcf)
 %             else
 %                 gif
 %             end
@@ -111,14 +111,18 @@ function pop = NSGA2()
 
 
 
-        % Collecting population to survive
+        % Collecting individualsulation to survive
         individuals = sorted_individuals(1:p.popSize);
-%         disp(['Generation: ' num2str(iGen)])
+        disp(['Generation: ' num2str(iGen)])
 %         disp(['One Gen took ' num2str(toc) ' seconds'])
 
     end
+        sorted_fitness = reshape([individuals.fitness],num_fitness,[])';
+        [val_set, I_set, ~] = unique(sorted_fitness, 'rows', 'stable');
+        final_individuals = individuals(I_set);
+
         disp(['Generation: ' num2str(iGen)])
-        disp(['Population Size: ' num2str(p.popSize)])
+        disp(['individualsulation Size: ' num2str(p.popSize)])
         disp(['Total Gen took ' num2str(toc) ' seconds'])
 
 end
