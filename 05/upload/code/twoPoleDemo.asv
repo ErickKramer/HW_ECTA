@@ -10,7 +10,7 @@
 %           ]
 
 %% Initialize hyperparameters
-% fig = figure(1);
+fig = figure(1);
 totalSteps = 1000;
 initialState = [0 0 .017 0 0.0 0]';  % initial state (note, it is a column vector) (1 degree = .017 rad)
 scaling = [ 2.4 10.0 0.628329 5 0.628329 16]'; % Divide state vector by this to scale state to numbers between 1 and 0
@@ -58,9 +58,9 @@ for step=1:totalSteps
 
             % Turn inactive connections to 0;
             wMat = wMat.*wActive;
-        else
-            wMat = CMA_ES_EP(wMat);
-        end
+%         else
+%             wMat = CMA_ES_EP(wMat)
+%         end
         
 
         %% Activating an Feed Forward ANN
@@ -95,7 +95,7 @@ for step=1:totalSteps
         %% Visualize result (optional and slow, don't use all the time!)
         %clf
 %         cpvisual(fig, 1, state(1:4), [-3 3 0 2], action );         % Pole 1
-% %         cpvisual(fig, 0.5, state([1 2 5 6]), [-3 3 0 2], action );% Pole 2
+        %cpvisual(fig, 0.5, state([1 2 5 6]), [-3 3 0 2], action );% Pole 2
 %         pause(0.02);
         
    

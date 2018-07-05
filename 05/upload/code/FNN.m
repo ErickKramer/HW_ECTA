@@ -1,4 +1,4 @@
-function output = FNN(scaledInput)
+function [output, wMat] = FNN(scaledInput)
 %         nSample = 1; nInputs = 6;
 % 
 %         inputVector = rand(nSample, nInputs); 
