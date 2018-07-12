@@ -1,31 +1,11 @@
-function wMat = CMA_ES_EP(wMat)  % (mu/mu_w, lambda)-CMA-ES
+function [fitness,wMat] = CMA_ES_EP(p)  % (mu/mu_w, lambda)-CMA-ES
     % --------------------  Initialization --------------------------------
-%     % Wing Parameters
-%     wing.numEvalPts = 256;
-%     switch wing_type
-%         case 1
-%             wing.nacaNum = [0,0,1,2];
-%             %                 disp('Wing 1')
-%         case 2
-%             wing.nacaNum = [5,5,2,2];
-%             %                 disp('Wing 2')
-%         case 3
-%             wing.nacaNum = [9,7,3,5];
-%             %                 disp('Wing 3')
-%         otherwise
-%             wing.nacaNum = [0,0,1,2];
-%             %                 disp('Wing 1')
-%     end
-%     wing.nacafoil= create_naca(wing.nacaNum,wing.numEvalPts);  % Create foil
-    
-    %Aplication parameters
-%     strfitnessfct = 'mean_square';  % name of objective/fitness function
-    valid_idx = find(wMat);
-    N = length(valid_idx);      % number of objective variables/problem dimension
-    xmean = wMat(valid_idx);    % objective variables initial point
+    wMat = rand(p.nNode); 
+     
+    N = numel(wMat);      % number of objective variables/problem dimension
+    xmean = wMat(:);    % objective variables initial point
     sigma = 0.3;          % coordinate wise standard deviation (step size)
-%     stopfitness = 1e-5;  % stop if fitness < stopfitness (minimization)
-    stopeval = 100;   % stop after stopeval number of function evaluations
+    stopeval = 4000;   % stop after stopeval number of function evaluations
 
     % Strategy parameter setting: Selection
     lambda = 4+floor(3*log(N));  % population size, offspring number
@@ -61,12 +41,10 @@ function wMat = CMA_ES_EP(wMat)  % (mu/mu_w, lambda)-CMA-ES
         for k=1:lambda
             arz(:,k) = randn(N,1);
             new_value = xmean + sigma * B * (D .* arz(:,k) ); % m + sig * Normal(0,C)
-            new_value(new_value > 0.5) = 0.5;
-            new_value(new_value < -0.5) = -0.5;
+
             arx(:,k) = new_value;
-%             foil = pts2ind(arx(:,k), wing.numEvalPts);
-            wMat(valid_idx) = new_value;
-            arfitness(k) = calc_fitness(wMat); % objective function call
+            wMat = reshape(arx(:,k),[p.nNode,p.nNode]);
+            arfitness(k) = calc_fitness_Rnn(wMat,p); % objective function call
         end
         
         
@@ -102,8 +80,11 @@ function wMat = CMA_ES_EP(wMat)  % (mu/mu_w, lambda)-CMA-ES
         invsqrtC = B * diag(D.^-1) * B';
 %         plot_foil(xmean, wing)
 %         foil = pts2ind(xmean, wing.numEvalPts);
-        wMat(valid_idx) = xmean;
-        fitness(iFit) = calc_fitness(wMat);
+        wMat = reshape(xmean,[p.nNode,p.nNode]);
+        fitness(iFit) = calc_fitness_Rnn(wMat,p);
+        if fitness(iFit) == p.totalSteps
+            break;
+        end
 
 
         % Break, if fitness is good enough or condition exceeds 1e14, better termination methods are advisable
@@ -113,8 +94,6 @@ function wMat = CMA_ES_EP(wMat)  % (mu/mu_w, lambda)-CMA-ES
 %         disp([num2str(counteval) ': ' num2str(arfitness(1))]);
         iFit = iFit +1;
         counteval = counteval+1;
-
-        wMat(valid_idx) = xmean;
 
     end
 

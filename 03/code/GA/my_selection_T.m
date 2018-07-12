@@ -1,4 +1,4 @@
-function parentIds = my_selection_T(fitness, p)
+function parentIds = my_selection(fitness, p)
 % tic
 %Selection - Returns indices of parents for crossover
 % - Tournament selection:
