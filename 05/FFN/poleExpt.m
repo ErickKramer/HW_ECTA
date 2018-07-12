@@ -8,13 +8,14 @@ p.state = p.initialState;
 p.force = 10;
 p.nSample =1;
 p.nInputs = length(p.initialState); 
+p.nInputs = 4; 
 p.nHidden = 3; 
 p.nOutputs = 1; 
 p.nNode = p.nInputs+p.nHidden+p.nOutputs;
 
 fig = figure(1);
 %% Getting the weight matrix and fitness
-finalFit = [10,1000]
+% finalFit = [10,1000];
 parfor i = 1:10
 [fitness, wMat] = CMA_ES_EP(p)
 finalFit(i, :) = fitness;
